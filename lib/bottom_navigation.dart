@@ -16,7 +16,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Widget> widgetOptions = [
     homeScreen(),
     cardScreen(),
-    cartScreen(),
+    CartScreen(),
     storesScreen(),
     homeScreen(),
   ];

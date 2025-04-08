@@ -28,7 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       await prefs.setString('conformPassword', confrompassword);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => loginscreen()),
+        MaterialPageRoute(builder: (context) => homeScreen()),
       );
     }
   }
@@ -101,7 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 60, 30, 0),
+              padding: const EdgeInsets.fromLTRB(20, 60, 20, 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -124,7 +124,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 35),
+                  //SizedBox(height: 20),
                   Row(
                     children: [
                       Text(

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoezz/card.dart';
 import 'package:shoezz/cart.dart';
 
@@ -12,6 +15,25 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  Future<void> addtolist() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  List<String> cartList = prefs.getStringList('cart') ?? [];
+
+  Map<String, dynamic> product = {
+    'image': widget.product['image'],
+    'name': widget.product['name'],
+    'price': widget.product['price'],
+    'qty': 1, // Default quantity
+  };
+
+  cartList.add(jsonEncode(product)); // Convert map to JSON string
+  await prefs.setStringList('cart', cartList);
+
+  Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+}
+
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -60,13 +82,15 @@ class _ProductScreenState extends State<ProductScreen> {
             SizedBox(height: 10),
 
             // ✅ Product Info
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade200,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade200,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -200,14 +224,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 width: double.infinity, // ✅ Makes button full-width
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => cartScreen()),
-                    );
-                    // TODO: Add action when button is clicked
-                    print("Added to List");
-                  },
+                  onPressed: addtolist, 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
                       255,

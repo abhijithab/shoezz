@@ -124,8 +124,8 @@ class _homeScreenState extends State<homeScreen> {
             DrawerHeader(
               decoration: BoxDecoration(color: Colors.black),
               child: Text(
-                'Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                'Shoezz',
+                style: GoogleFonts.poppins(color:  const Color.fromARGB(255, 213, 241, 162), fontSize: 30),
               ),
             ),
             ListTile(

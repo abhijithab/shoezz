@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoezz/bottom_navigation.dart';
 import 'package:shoezz/login.dart';
+import 'package:shoezz/registration.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isloggedin = prefs.getBool('isloggedin')?? false;
       if(mounted){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>isloggedin? BottomNavigationScreen():loginscreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>isloggedin? RegistrationScreen():BottomNavigationScreen()));
       }
     },);
   } 

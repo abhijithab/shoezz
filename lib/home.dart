@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoezz/login.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -54,34 +55,49 @@ class _homeScreenState extends State<homeScreen> {
     },
   ];
   final List<Map<String, dynamic>> iconsList = [
-    {'path': 'assets/adidasicon.png',
-    'color':Colors.grey[350]},
-    {'path': 'assets/puma.png','color':Colors.grey[350]},
-    {'path': 'assets/nike.png','color':Colors.grey[350]},
+    {'path': 'assets/adidasicon.png', 'color': Colors.grey[350]},
+    {'path': 'assets/puma.png', 'color': Colors.grey[350]},
+    {'path': 'assets/nike.png', 'color': Colors.grey[350]},
   ];
 
-  final List<String> brandList=[
+  final List<String> brandList = [
     'assets/adidasicon.png',
     'assets/puma.png',
     'assets/nike.png',
     'assets/new-balance.png',
     'assets/fila.png',
-
   ];
 
-  final List<String> brandname=[
+  final List<String> brandname = [
     'Adidas',
     'Puma',
     'Nike',
     'NewBalance',
-    'Fila'
+    'Fila',
   ];
+
+Future<void> logout() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // Clear all data from SharedPreferences
+  await prefs.clear();
+
+  // Navigate to login screen and remove all previous routes
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => loginscreen()),
+    (Route<dynamic> route) => false,
+  );
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text('Logout successful')),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         leading: Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
           child: Row(
@@ -125,7 +141,10 @@ class _homeScreenState extends State<homeScreen> {
               decoration: BoxDecoration(color: Colors.black),
               child: Text(
                 'Shoezz',
-                style: GoogleFonts.poppins(color:  const Color.fromARGB(255, 213, 241, 162), fontSize: 30),
+                style: GoogleFonts.poppins(
+                  color: const Color.fromARGB(255, 213, 241, 162),
+                  fontSize: 30,
+                ),
               ),
             ),
             ListTile(
@@ -139,14 +158,9 @@ class _homeScreenState extends State<homeScreen> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => loginscreen()),
-                );
-              },
+              leading: Icon(Icons.logout_rounded),
+              title: Text('Logout'),
+              onTap: logout,
             ),
           ],
         ),
@@ -190,7 +204,7 @@ class _homeScreenState extends State<homeScreen> {
                 items:
                     imageList.map((imageData) {
                       return Container(
-                        margin: EdgeInsets.symmetric(horizontal:10),
+                        margin: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           color: imageData['color'],
                           borderRadius: BorderRadius.circular(30),
@@ -271,49 +285,49 @@ class _homeScreenState extends State<homeScreen> {
                       ),
                     ],
                   ),
-                Padding(padding:EdgeInsets.fromLTRB(0,0,0,0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(5, (index){
-                      return Padding(padding: EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 40,
-                            width: 40,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: Colors.grey[200]
-                                
-                              ),
-                              padding: EdgeInsets.fromLTRB(0,0,0,0),
-                              child: Image.asset(brandList[index],fit: BoxFit.contain,),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(5, (index) {
+                          return Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: Colors.grey[200],
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    child: Image.asset(
+                                      brandList[index],
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                SizedBox(
+                                  height: 20,
+                                  child: Text(
+                                    brandname[index],
+                                    style: GoogleFonts.poppins(fontSize: 11),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 5,),
-                          SizedBox(
-                            height: 20,
-                            child: Text(brandname[index],style: GoogleFonts.poppins(fontSize: 11,),),
-                          )
+                          );
+                        }),
 
-                        ],
-                      ),);
-                      
-                    })
-
-                      
-
-                    
-                      
-                      // List.generate(5, (index))],
+                        // List.generate(5, (index))],
+                      ),
+                    ),
                   ),
-                ),
-                ),
-
-
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

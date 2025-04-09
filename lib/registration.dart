@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoezz/bottom_navigation.dart';
 import 'package:shoezz/home.dart';
 import 'package:shoezz/login.dart';
 
@@ -17,7 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _conformPasswordController = TextEditingController();
 
-  Future<void> signup() async {
+  Future<void> registration() async {
     String? emailAddress = _emailController.text.trim();
     String? password = _passwordController.text.trim();
     String? confrompassword = _conformPasswordController.text.trim();
@@ -28,7 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       await prefs.setString('conformPassword', confrompassword);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => homeScreen()),
+        MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
       );
     }
   }
@@ -228,8 +229,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 },
                                 icon: Icon(
                                   passwordVisible
-                                      ? Icons.visibility_rounded
-                                      : Icons.visibility_off_rounded,
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility_rounded,
                                   color: Colors.black,
                                 ),
                               ),
@@ -261,8 +262,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 },
                                 icon: Icon(
                                   passwordVisible2
-                                      ? Icons.visibility_rounded
-                                      : Icons.visibility_off_rounded,
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility_rounded,
                                   color: Colors.black,
                                 ),
                               ),
@@ -312,7 +313,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
-                                  onPressed: signup,
+                                  onPressed: registration,
                                   child: Text(
                                     'Signup',
                                     style: GoogleFonts.poppins(

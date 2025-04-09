@@ -20,11 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
   Future<void> _SplashScreen() async{
-    Future.delayed(Duration(seconds: 3),()async{
+    Future.delayed(Duration(seconds: 5),()async{
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isloggedin = prefs.getBool('isloggedin')?? false;
       if(mounted){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>isloggedin? RegistrationScreen():BottomNavigationScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>isloggedin? BottomNavigationScreen():loginscreen()));
       }
     },);
   } 

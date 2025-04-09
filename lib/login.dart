@@ -32,6 +32,8 @@ class _loginscreenState extends State<loginscreen> {
 
     }
   }
+  
+  
 
   String? _emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -206,8 +208,8 @@ class _loginscreenState extends State<loginscreen> {
                                 },
                                 icon: Icon(
                                   passwordVisible
-                                      ? Icons.visibility_rounded
-                                      : Icons.visibility_off_rounded,
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility_rounded,
                                   color: Colors.black,
                                 ),
                               ),
